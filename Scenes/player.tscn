@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://4p6evgv7qwq6" path="res://Scripts/flashlight.gd" id="2_cvnsp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
+radius = 0.3
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
 

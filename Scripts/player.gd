@@ -7,7 +7,7 @@ var sprint_usage : float = 30
 var sprint_recovery : float = 10
 @export_range(10, 400, 1) var acceleration: float = 50 # m/s^2
 	
-@export_range(0.1, 3.0, 0.1) var jump_height: float = 10 # m
+@export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 5
 
 var jumping: bool = false
