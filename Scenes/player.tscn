@@ -17,16 +17,22 @@ shape = SubResource("CapsuleShape3D_f60y1")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_v0iea")
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455, -0.215, -0.646)
+size = Vector3(0.334961, 0.329102, 0.339844)
+
+[node name="Camera" type="Camera3D" parent="Head"]
 current = true
 
-[node name="Flashlight" type="SpotLight3D" parent="Camera"]
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera"]
 light_color = Color(0.842511, 0.824904, 0.750233, 1)
 light_energy = 10.0
 light_volumetric_fog_energy = 5.0
 spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 40.0
-spot_angle_attenuation = 6.0
+spot_angle_attenuation = 3.0
 script = ExtResource("2_cvnsp")

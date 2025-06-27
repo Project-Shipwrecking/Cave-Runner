@@ -1,26 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bti8m3icme3bp"]
+[gd_scene load_steps=3 format=3 uid="uid://bti8m3icme3bp"]
 
 [ext_resource type="Script" uid="uid://c2lwug5ndfeul" path="res://Scripts/maze_gen.gd" id="1_31kh1"]
-[ext_resource type="MeshLibrary" uid="uid://vmv7e6mb2dib" path="res://Assets/Meshes/meshlib2.tres" id="1_aiyge"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_aiyge"]
-size = Vector3(15, 1, 15)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bbt2e"]
-size = Vector3(15, 1, 15)
+[ext_resource type="MeshLibrary" uid="uid://c4yt8po8gmdqr" path="res://Assets/Meshes/meshlib.tres" id="1_aiyge"]
 
 [node name="Maze" type="GridMap"]
 mesh_library = ExtResource("1_aiyge")
-cell_size = Vector3(1, 1, 1)
+cell_size = Vector3(5, 10, 5)
+collision_priority = 10.0
 script = ExtResource("1_31kh1")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_aiyge")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_bbt2e")

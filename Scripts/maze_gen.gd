@@ -45,13 +45,15 @@ func generateMaze() -> Array[Array]:
 
 
 func _gen_borders():
-	
 	for x in range(-1,(maze_size.x)*2):
 		set_cell_item(Vector3i(x,0,-1),1)
 		set_cell_item(Vector3i(x,0,maze_size.y*2-1),1)
 	for y in range(0,(maze_size.y)*2):
 		set_cell_item(Vector3i(-1,0,y),1)
 		set_cell_item(Vector3i(maze_size.x*2-1,0,y),1)
+	#for x in range(-1,(maze_size.x)*2):
+		#for y in range(0,(maze_size.y)*2):
+			#set_cell_item(Vector3i(x,1,y),3,0)
 
 var prev_dir = Vector2.ZERO
 

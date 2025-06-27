@@ -8,7 +8,12 @@ var sprint_recovery : float = 10
 @export_range(10, 400, 1) var acceleration: float = 50 # m/s^2
 	
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
+
+@export_category("Camera")
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 5
+@export_range(0.1, 3.0, 0.05,"or_greater") var bob_freq: float = 3.0
+@export_range(0.1, 3.0, 0.05,"or_greater") var bob_amp: float = .03
+var head_bob_time := 0.0
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -22,7 +27,8 @@ var walk_vel: Vector3 # Walking velocity
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
 
-@onready var camera: Camera3D = $Camera
+@onready var head: Node3D = $Head
+@onready var camera: Camera3D = $Head/Camera
 var ui : UI
 
 func _ready() -> void:
@@ -48,6 +54,16 @@ func _physics_process(delta: float) -> void:
 		ui.sprint_value += sprint_recovery * delta
 	velocity = _walk(delta, move_speed) + _gravity(delta) + _jump(delta)
 	move_and_slide()
+	
+	# Bob head:
+	head_bob_time += delta * velocity.length() * float(is_on_floor())
+	camera.transform.origin = bob_head(head_bob_time)
+	
+func bob_head(bob_time: float):
+	var bob_pos = Vector3.ZERO
+	bob_pos.y = sin(bob_time * bob_freq) * bob_amp
+	bob_pos.x = cos(bob_time * bob_freq / 2) * bob_amp
+	return bob_pos
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -58,8 +74,8 @@ func release_mouse() -> void:
 	mouse_captured = false
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
-	camera.rotation.y -= look_dir.x * camera_sens * sens_mod
-	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
+	head.rotation.y -= look_dir.x * camera_sens * sens_mod
+	head.rotation.x = clamp(head.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
 
 #func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void:
 	#var joypad_dir: Vector2 = Input.get_vector("look_left","look_right","look_up","look_down")
