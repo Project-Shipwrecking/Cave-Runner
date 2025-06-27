@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b53ic73x5nd6w"]
+
+[ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="1_jxero"]
+
+[sub_resource type="Gradient" id="Gradient_wviqb"]
+offsets = PackedFloat32Array(0, 0.992958)
+colors = PackedColorArray(0.286275, 0.286275, 0.286275, 0.870588, 0.187176, 0.187176, 0.187176, 0.870588)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jxero"]
+gradient = SubResource("Gradient_wviqb")
+
+[sub_resource type="Gradient" id="Gradient_qdvrb"]
+colors = PackedColorArray(0.792157, 0.772549, 0.168627, 0.756863, 0.792157, 0.772549, 0.168627, 0.756863)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nf4gj"]
+gradient = SubResource("Gradient_qdvrb")
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jxero")
+
+[node name="SprintMeter" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.7
+anchor_right = 0.8
+anchor_bottom = 0.75
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_jxero")
+texture_progress = SubResource("GradientTexture1D_nf4gj")
+
+[node name="Timer" type="Timer" parent="SprintMeter"]
+one_shot = true
+
+[connection signal="timeout" from="SprintMeter/Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3ftr23kgwuii"]
+
+[ext_resource type="Script" uid="uid://cmkjutgy367gg" path="res://Scripts/player.gd" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://4p6evgv7qwq6" path="res://Scripts/flashlight.gd" id="2_cvnsp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_v0iea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_f60y1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_v0iea")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+current = true
+
+[node name="Flashlight" type="SpotLight3D" parent="Camera"]
+light_color = Color(0.842511, 0.824904, 0.750233, 1)
+light_energy = 10.0
+light_volumetric_fog_energy = 5.0
+spot_range = 15.0
+spot_attenuation = 2.0
+spot_angle = 40.0
+spot_angle_attenuation = 6.0
+script = ExtResource("2_cvnsp")
