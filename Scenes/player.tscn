@@ -10,6 +10,8 @@ radius = 0.3
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v0iea")
+bob_freq = 5.0
+bob_amp = 0.05
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_f60y1")
@@ -24,10 +26,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455, -0.215, -0.646)
 size = Vector3(0.334961, 0.329102, 0.339844)
 
-[node name="Camera" type="Camera3D" parent="Head"]
-current = true
-
-[node name="Flashlight" type="SpotLight3D" parent="Head/Camera"]
+[node name="Flashlight" type="SpotLight3D" parent="Head/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.252062)
 light_color = Color(0.842511, 0.824904, 0.750233, 1)
 light_energy = 10.0
 light_volumetric_fog_energy = 5.0
@@ -36,3 +36,6 @@ spot_attenuation = 2.0
 spot_angle = 40.0
 spot_angle_attenuation = 3.0
 script = ExtResource("2_cvnsp")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+current = true

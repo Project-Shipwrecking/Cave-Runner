@@ -40,9 +40,13 @@ func generateMaze() -> Array[Array]:
 				set_cell_item(Vector3i(x,0,y),1)
 	setup_connections()
 	
+	_open_entrance_exit()
 	return maze
 
-
+func _open_entrance_exit():
+	set_cell_item(Vector3i(-1,0,0),0)
+	set_cell_item(Vector3i(maze_size.x*2-2,0,maze_size.y*2-1),0)
+	
 
 func _gen_borders():
 	for x in range(-1,(maze_size.x)*2):

@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b53ic73x5nd6w"]
+[gd_scene load_steps=6 format=3 uid="uid://bx0g61eggqdy"]
 
 [ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="1_jxero"]
 
-[sub_resource type="Gradient" id="Gradient_wviqb"]
+[sub_resource type="Gradient" id="Gradient_jxero"]
 offsets = PackedFloat32Array(0, 0.992958)
 colors = PackedColorArray(0.286275, 0.286275, 0.286275, 0.870588, 0.187176, 0.187176, 0.187176, 0.870588)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jxero"]
-gradient = SubResource("Gradient_wviqb")
+gradient = SubResource("Gradient_jxero")
 
 [sub_resource type="Gradient" id="Gradient_qdvrb"]
 colors = PackedColorArray(0.792157, 0.772549, 0.168627, 0.756863, 0.792157, 0.772549, 0.168627, 0.756863)

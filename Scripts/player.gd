@@ -11,8 +11,8 @@ var sprint_recovery : float = 10
 
 @export_category("Camera")
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 5
-@export_range(0.1, 3.0, 0.05,"or_greater") var bob_freq: float = 3.0
-@export_range(0.1, 3.0, 0.05,"or_greater") var bob_amp: float = .03
+@export_range(0.1, 10, 0.05,"or_greater") var bob_freq: float = 3.0
+@export_range(0.0, 0.5, 0.01,"or_greater") var bob_amp: float = .03
 var head_bob_time := 0.0
 
 var jumping: bool = false
