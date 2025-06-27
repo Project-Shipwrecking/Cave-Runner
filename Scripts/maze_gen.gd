@@ -19,20 +19,39 @@ func _ready():
 
 
 func generateMaze() -> Array[Array]:
+	self.clear()
+	_gen_borders()
+			
+	
 	for x in range(maze_size.x):
 		var row: Array[NodeData] = []
 		for y in range(maze_size.y):
 
 			var node_data = NodeData.new(Vector2(x, y))
 			row.append(node_data)
-			print(node_data.pos)
-			set_cell_item(Vector3i(x,0,y)*2, 1)  # Set the cell item to a default value (e.g., 0)
-
-		maze.append(row)
+			set_cell_item(Vector3i(x,0,y)*2+Vector3i(1,0,1), 1)  # Set the corners to be full
+			
 	
+		maze.append(row)
+	# Set all walls to be 1
+	for x in range(0, (maze_size.x)*2):
+		for y in range(0, (maze_size.y)*2):
+			if y%2 != x%2:
+				set_cell_item(Vector3i(x,0,y),1)
 	setup_connections()
 	
 	return maze
+
+
+
+func _gen_borders():
+	
+	for x in range(-1,(maze_size.x)*2):
+		set_cell_item(Vector3i(x,0,-1),1)
+		set_cell_item(Vector3i(x,0,maze_size.y*2-1),1)
+	for y in range(0,(maze_size.y)*2):
+		set_cell_item(Vector3i(-1,0,y),1)
+		set_cell_item(Vector3i(maze_size.x*2-1,0,y),1)
 
 var prev_dir = Vector2.ZERO
 
@@ -70,7 +89,7 @@ func point_node(pos: Vector2, dir: Vector2) -> void:
 
 	if !(node_b in node_a.connected_nodes):
 		node_a.connected_nodes.append(node_b)
-		_wall(node_a.pos, node_b.pos)
+		_wall(node_a.pos, node_b.pos, 0)
 
 func _wall(pos1:Vector2i, pos2:Vector2i, id:int = 1):
 	var mid = (pos1 + pos2) 
@@ -82,25 +101,44 @@ func move_origin(dir: Vector2) -> bool:
 	if !is_valid_position(new_pos):
 		return false
 
-	# Make sure the previous origin points towards the new origin
-	if not maze[new_pos.x][new_pos.y] in maze[origin_pos.x][origin_pos.y].connected_nodes:
-		#maze[origin_pos.x][origin_pos.y].connected_nodes = [
-			#maze[new_pos.x][new_pos.y].node_ref
-		#]
-		point_node(origin_pos, dir)
-
+	set_cell_item(Vector3i(origin_pos.x*2,0,origin_pos.y*2),0)
+	set_cell_item(Vector3i(new_pos.x*2,0,new_pos.y*2),2)
+	
+	
 	# Clear connections from new origin
 	var new = maze[new_pos.x][new_pos.y]
 	for node in new.connected_nodes:
-		_wall(new.pos, node.pos, 0)
+		_wall(new.pos, node.pos, 1)
 	maze[new_pos.x][new_pos.y].connected_nodes = []
+	
+	# Make sure the previous origin points towards the new origin
+	if not maze[new_pos.x][new_pos.y] in maze[origin_pos.x][origin_pos.y].connected_nodes:
+		point_node(origin_pos, dir)
+
 	origin_pos = new_pos
-	#queue_redraw()  # Request redraw after moving origin
+	
 	return true
 
-
+func _get_neighbor_data(pos:Vector2) -> Array[NodeData]:
+	var out = []
+	for dir in directions:
+		out.append(maze[pos.x+dir.x][pos.y+dir.y])
+	return out
+	
 func is_valid_position(pos: Vector2) -> bool:
 	return pos.x >= 0 and pos.x < maze_size.x and pos.y >= 0 and pos.y < maze_size.y
+
+func print_node_data(pos: Vector2) -> void:
+	if !is_valid_position(pos):
+		print("Invalid position: ", pos)
+		return
+
+	var node = maze[pos.x][pos.y]
+	print("Node Position: (%d, %d)" % [pos.x, pos.y])
+
+	for connected_node in node.connected_nodes:
+		print("Connected to: ", connected_node.name)
+
 
 
 func _bring_to_3d() -> void:
@@ -130,15 +168,3 @@ func _bring_to_3d() -> void:
 				# Draw connection line
 				#draw_line(start, end, Color(0.8, 0.8, 0.2), 2.0)
 				#draw_arrow(start, end)
-
-
-func print_node_data(pos: Vector2) -> void:
-	if !is_valid_position(pos):
-		print("Invalid position: ", pos)
-		return
-
-	var node = maze[pos.x][pos.y]
-	print("Node Position: (%d, %d)" % [pos.x, pos.y])
-
-	for connected_node in node.connected_nodes:
-		print("Connected to: ", connected_node.name)

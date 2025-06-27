@@ -28,7 +28,7 @@ func generateMaze() -> Array[Array]:
 			node.name = "Node_%d_%d" % [x, y]
 			node.position = Vector2(x, y) * cell_size
 
-			var node_data = NodeData.new(node, Vector2(x, y))
+			var node_data = NodeData.new(Vector2(x, y))
 			row.append(node_data)
 			print(node_data.pos)
 			add_child(node)  # Add node to scene immediately

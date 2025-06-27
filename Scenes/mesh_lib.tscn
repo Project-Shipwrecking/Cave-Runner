@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpy1xju28my66"]
+[gd_scene load_steps=6 format=3 uid="uid://cpy1xju28my66"]
 
 [sub_resource type="PlaceholderMesh" id="PlaceholderMesh_uuxac"]
 
@@ -6,6 +6,12 @@
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iafgv"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuxac"]
+albedo_color = Color(1, 0.196078, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iafgv"]
+material = SubResource("StandardMaterial3D_uuxac")
 
 [node name="MeshLib" type="Node3D"]
 
@@ -19,3 +25,6 @@ mesh = SubResource("BoxMesh_pcvjf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_iafgv")
+
+[node name="3" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_iafgv")

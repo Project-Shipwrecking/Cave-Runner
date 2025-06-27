@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bti8m3icme3bp"]
 
 [ext_resource type="Script" uid="uid://c2lwug5ndfeul" path="res://Scripts/maze_gen.gd" id="1_31kh1"]
-[ext_resource type="MeshLibrary" uid="uid://dny8ykrqsfmi0" path="res://Assets/Meshes/meshlib.tres" id="1_aiyge"]
+[ext_resource type="MeshLibrary" uid="uid://vmv7e6mb2dib" path="res://Assets/Meshes/meshlib2.tres" id="1_aiyge"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aiyge"]
 size = Vector3(15, 1, 15)
