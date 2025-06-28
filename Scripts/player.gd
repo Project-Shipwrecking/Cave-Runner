@@ -39,6 +39,7 @@ func _ready() -> void:
 	$Head/InGameCam.taking_photo.connect(update_photo_state)
 
 func update_photo_state(is_taking:bool):
+	if is_taking == false: print_debug("Finsihed photo")
 	taking_photo = is_taking
 	
 

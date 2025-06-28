@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3ftr23kgwuii"]
 
 [ext_resource type="Script" uid="uid://cmkjutgy367gg" path="res://Scripts/player.gd" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://4p6evgv7qwq6" path="res://Scripts/flashlight.gd" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://cibeypc3wu5rh" path="res://Scripts/head.gd" id="2_3smsa"]
 [ext_resource type="Script" uid="uid://cx0f6isccgvgm" path="res://Scripts/camera.gd" id="2_x3wgy"]
 [ext_resource type="Script" uid="uid://bgn4tk8nvqbhl" path="res://Scripts/in_game_cam.gd" id="3_6t5aa"]
 [ext_resource type="Material" uid="uid://bhqwsr4mlpvbm" path="res://Materials/shaderMaterial.tres" id="3_vgqql"]
@@ -30,6 +30,14 @@ mesh = SubResource("CapsuleMesh_v0iea")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("2_3smsa")
+
+[node name="Camera" type="Camera3D" parent="Head"]
+current = true
+script = ExtResource("2_x3wgy")
+
+[node name="ShakeTimer" type="Timer" parent="Head/Camera"]
+one_shot = true
 
 [node name="InGameCam" type="MeshInstance3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.511, -0.288, -0.666)
@@ -45,12 +53,18 @@ cull_mask = 1048573
 
 [node name="CamPos" type="Marker3D" parent="Head/InGameCam"]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Head"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/InGameCam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0929347)
+light_energy = 1.5
+spot_range = 100.0
+spot_attenuation = -0.5
+spot_angle = 70.0
+
+[node name="FlashlightModel" type="CSGCombiner3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455, -0.215, -0.646)
 visible = false
-size = Vector3(0.334961, 0.329102, 0.339844)
 
-[node name="Flashlight" type="SpotLight3D" parent="Head/CSGBox3D"]
+[node name="Flashlight" type="SpotLight3D" parent="Head/FlashlightModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.252062)
 light_color = Color(0.842511, 0.824904, 0.750233, 1)
 light_energy = 10.0
@@ -59,7 +73,17 @@ spot_range = 15.0
 spot_attenuation = 2.0
 spot_angle = 40.0
 spot_angle_attenuation = 3.0
-script = ExtResource("2_cvnsp")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Head/FlashlightModel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+radius = 0.05
+height = 0.3
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Head/FlashlightModel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.1)
+radius = 0.1
+height = 0.2
+cone = true
 
 [node name="LookAt" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
@@ -67,7 +91,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 [node name="IGCPlace" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.00236)
 script = ExtResource("5_fkybt")
-
-[node name="Camera" type="Camera3D" parent="Head"]
-current = true
-script = ExtResource("2_x3wgy")

@@ -4,6 +4,8 @@ class_name InGameCam extends MeshInstance3D
 @onready var marker := $CamPos as Marker3D
 @onready var look_marker := $"../LookAt" as Marker3D
 @onready var portal_shader: Shader = preload("res://Shaders/in_game_cam.gdshader")
+@onready var flash := $SpotLight3D as SpotLight3D
+
 var viewport 
 var current_state = State.IDLE
 var tween : Tween
@@ -17,46 +19,44 @@ enum State {
 
 func _ready():
 	_set_portal_material()
+	flash.light_energy = 0
 
 func _set_portal_material():
 	viewport = $SubViewport
-	#viewport.
-	#viewport = SubViewport.new()
-	#viewport.size = get_window().size 
-	#viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	#viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-	#add_child(viewport)
 	var viewport_texture = viewport.get_texture()
-	
-	#cam = Camera3D.new()
-	#viewport.add_child(cam)
 	
 	var material = ShaderMaterial.new()
 	material.shader = portal_shader
-	#material.set_shader_parameter("albedo", viewport.get_texture())
 	material.set_shader_parameter("albedo", viewport_texture)
-	#self.material_override = material
 	set_surface_override_material(0, material)
 
 var original_transform 
 
 func start_interpolation():
-	taking_photo.emit(true)
-	
-	if current_state != State.IDLE:
+	if current_state != State.IDLE or self.visible == false:
 		return # Don't start if already interpolating
+		
+	Global.taking_photo.emit(true)
+	
 	var target_transform = $"../IGCPlace".transform
 	var interpolation_duration = .2
-	var delay_at_marker = .5
+	var delay_at_marker = .7
 	original_transform = transform
 	print("interpolating?")
 	current_state = State.MOVING_TO_MARKER
+	
 	tween = get_tree().create_tween() # Create a new tween for each sequence
+	tween.set_parallel(true)
 	tween.tween_property(self, "transform", target_transform, interpolation_duration)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT) # Smooth start/end
-
-	# Chain the next steps
-	tween.tween_interval(delay_at_marker) # Wait at the marker
+	tween.tween_property(flash, "light_energy", 1.5, 0.1)
+	
+	# Chain the next steps (ignore parallel)
+	tween.chain()
+	tween.tween_property(flash, "light_energy", 0, .5)\
+			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	tween.chain()
+	tween.tween_interval(delay_at_marker-.5) # Wait at the marker
 	tween.tween_callback(Callable(self, "_on_reached_marker")) # Call function when interval finishes
 	tween.tween_property(self, "transform", original_transform, interpolation_duration)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -66,13 +66,14 @@ func start_interpolation():
 
 func _on_reached_marker():
 	current_state = State.AT_MARKER
-	print("Reached marker!")
+	Global.cam_reached_marker.emit()
+	
 
 func _on_tween_finished():
 	current_state = State.IDLE
 	print("Returned to original!")
 	tween = null # Clear the tween reference
-	taking_photo.emit(false)
+	Global.taking_photo.emit(false)
 
 
 

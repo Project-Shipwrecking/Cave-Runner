@@ -6,5 +6,5 @@ uniform sampler2D albedo : source_color;
 void fragment(){
 	ALBEDO = vec3(texture(albedo, SCREEN_UV).rgb);
 	//ALBEDO = vec3(texture(albedo, UV).rgb);
-	
+
 }
