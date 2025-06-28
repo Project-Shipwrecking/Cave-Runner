@@ -56,8 +56,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Bob head:
-	head_bob_time += delta * velocity.length() * float(is_on_floor())
-	camera.transform.origin = bob_head(head_bob_time)
+	if $Head/InGameCam.current_state == $Head/InGameCam.State.IDLE: 
+		head_bob_time += delta * velocity.length() * float(is_on_floor())
+		camera.transform.origin = bob_head(head_bob_time)
 	
 func bob_head(bob_time: float):
 	var bob_pos = Vector3.ZERO
