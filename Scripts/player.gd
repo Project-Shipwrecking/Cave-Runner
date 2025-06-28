@@ -38,9 +38,9 @@ func _ready() -> void:
 	
 	Global.focus_cam.connect(update_cam_state)
 
-func update_cam_state(is_taking:bool):
+func update_cam_state(is_focused:bool):
 	#if is_taking == false: print_debug("Finsihed photo")
-	focus_cam = is_taking
+	focus_cam = is_focused
 	
 
 func _unhandled_input(event: InputEvent) -> void:

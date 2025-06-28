@@ -1,12 +1,12 @@
 class_name InGameCam extends MeshInstance3D
 
 @onready var cam : Camera3D = $SubViewport/Camera3D
-@onready var marker := $CamPos as Marker3D
+@onready var marker := %Camera 
 @onready var look_marker := $"../LookAt" as Marker3D
-@onready var portal_shader: Shader = preload("res://Shaders/in_game_cam.gdshader")
+@onready var portal_shader: Shader = preload("res://Shaders/in_game_cam_test.gdshader")
 @onready var flash := $SpotLight3D as SpotLight3D
 
-var viewport 
+var viewport : SubViewport
 var current_state = State.IDLE
 var tween : Tween
 var is_taking_photo = false
@@ -18,6 +18,7 @@ enum State {
 }
 
 var original_transform 
+
 func _ready():
 	_set_portal_material()
 	flash.light_energy = 0
@@ -25,10 +26,15 @@ func _ready():
 
 func _set_portal_material():
 	viewport = $SubViewport
+	#viewport = get_viewport()
 	var viewport_texture = viewport.get_texture()
+	viewport.size = get_viewport().size
+	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	
 	var material = ShaderMaterial.new()
 	material.shader = portal_shader
+	#material.set_shader_parameter("face_size", get_viewport().size)
 	material.set_shader_parameter("albedo", viewport_texture)
 	set_surface_override_material(0, material)
 
@@ -96,8 +102,9 @@ func _on_tween_finished():
 
 
 func _process(_delta):
-	if current_state == State.IDLE:
-		self.look_at(look_marker.global_position, Vector3.LEFT)
-		self.look_at(look_marker.global_position, Vector3.UP)
 	cam.global_transform = marker.global_transform
+	#if current_state == State.IDLE:
+		#self.look_at(look_marker.global_position, Vector3.LEFT)
+		#self.look_at(look_marker.global_position, Vector3.UP)
+	#material_override.shader.set_shader_parameter("")
 	
