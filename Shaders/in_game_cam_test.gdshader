@@ -1,28 +1,29 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled;
 
-uniform sampler2D albedo;
-uniform vec3 face_direction = vec3(0.0, 0.0, 1.0);
-uniform vec2 face_size = vec2(1.0, 1.0);
-uniform mat3 object_basis;
-uniform vec3 object_origin;
+uniform sampler2D albedo : source_color;
+uniform vec2 viewport_size = vec2(640.0, 480.0);
+uniform mat4 model_matrix;
 uniform mat4 camera_inv_transform;
 
+varying vec2 projected_uv;
+
+void vertex() {
+    // Compute world position
+    vec3 world_pos = (model_matrix * vec4(VERTEX, 1.0)).xyz;
+
+    // Transform to camera space
+    vec4 cam_local = camera_inv_transform * vec4(world_pos, 1.0);
+
+    // Orthographic projection
+    projected_uv = cam_local.xy / viewport_size + vec2(0.5);
+    projected_uv.y = 1.0 - projected_uv.y; // Flip if needed
+}
+
 void fragment() {
-    vec3 n = normalize(NORMAL);
-    if (dot(n, face_direction) < 0.99) {
+    if (projected_uv.x < 0.0 || projected_uv.x > 1.0 || projected_uv.y < 0.0 || projected_uv.y > 1.0) {
         discard;
     }
-	
-	vec3 world_pos = object_basis * VERTEX + object_origin;
-vec4 camera_local_pos = camera_inv_transform * vec4(world_pos, 1.0);
 
-    vec2 uv = camera_local_pos.xy / face_size + 0.5;
-
-    // Optionally flip uv.y if needed:
-    uv.y = 1.0 - uv.y;
-
-    //ALBEDO = texture(albedo, uv).rgb;
-	ALBEDO = pow(texture(albedo, uv).rgb, vec3(2.2));
-
+    ALBEDO = texture(albedo, projected_uv).rgb;
 }

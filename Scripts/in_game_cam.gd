@@ -3,7 +3,8 @@ class_name InGameCam extends MeshInstance3D
 @onready var cam : Camera3D = $SubViewport/Camera3D
 @onready var marker := %Camera 
 @onready var look_marker := $"../LookAt" as Marker3D
-@onready var portal_shader: Shader = preload("res://Shaders/in_game_cam_test.gdshader")
+#@onready var portal_shader: Shader = preload("res://Shaders/in_game_cam_test.gdshader")
+@onready var portal_shader: Shader = preload("res://Shaders/in_game_cam.gdshader")
 @onready var flash := $SpotLight3D as SpotLight3D
 
 var viewport : SubViewport
@@ -35,6 +36,10 @@ func _set_portal_material():
 	var material = ShaderMaterial.new()
 	material.shader = portal_shader
 	#material.set_shader_parameter("face_size", get_viewport().size)
+	
+	material.set_shader_parameter("camera_inv_transform", cam.global_transform.affine_inverse())
+	material.set_shader_parameter("model_matrix", global_transform)
+	
 	material.set_shader_parameter("albedo", viewport_texture)
 	set_surface_override_material(0, material)
 
@@ -76,6 +81,8 @@ func take_photo():
 	is_taking_photo = true
 	print("is taking photo? %s" % is_taking_photo)
 	Global.photo_taken.emit()
+	if tween == null: 
+		tween = get_tree().create_tween()
 	tween.kill()
 	tween = get_tree().create_tween()
 	tween.tween_property(flash, "light_energy", 1.5, 0.1)
