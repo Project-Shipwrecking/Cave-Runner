@@ -147,30 +147,30 @@ func print_node_data(pos: Vector2) -> void:
 
 
 
-func _bring_to_3d() -> void:
-	# Draw nodes and connections
-	for x in range(maze_size.x):
-		for y in range(maze_size.y):
-			var node_data = maze[x][y]
-			#var node_pos  = self.map_to_local(node_data.pos)
-
-			# Draw node rectangle
-			#var rect: Rect2  = Rect2(node_pos, Vector2(cell_size_digi * 0.5, cell_size_digi * 0.5))
-			#var color: Color = Color(0.2, 0.2, 0.8, 1)
-
-			# Highlight origin node
-			#if Vector2(x, y) == origin_pos:
-				#color = Color(0.8, 0.2, 0.2, 1)
-
-			#draw_rect(rect, color, true)
-
-			# Draw connections with arrows
-			for connected_node in node_data.connected_nodes:
-				var connected_pos = connected_node.position
-				var start = node_data.pos  # Start at the center of the node
-				var end = connected_pos   # Center of the connected node
-				var middle = (start + end)*2
-				#self.set_cell_item(Vector3i(middle.x,0,middle.y), 1)
-				# Draw connection line
-				#draw_line(start, end, Color(0.8, 0.8, 0.2), 2.0)
-				#draw_arrow(start, end)
+#func _bring_to_3d() -> void:
+	## Draw nodes and connections
+	#for x in range(maze_size.x):
+		#for y in range(maze_size.y):
+			#var node_data = maze[x][y]
+			##var node_pos  = self.map_to_local(node_data.pos)
+#
+			## Draw node rectangle
+			##var rect: Rect2  = Rect2(node_pos, Vector2(cell_size_digi * 0.5, cell_size_digi * 0.5))
+			##var color: Color = Color(0.2, 0.2, 0.8, 1)
+#
+			## Highlight origin node
+			##if Vector2(x, y) == origin_pos:
+				##color = Color(0.8, 0.2, 0.2, 1)
+#
+			##draw_rect(rect, color, true)
+#
+			## Draw connections with arrows
+			#for connected_node in node_data.connected_nodes:
+				#var connected_pos = connected_node.position
+				#var start = node_data.pos  # Start at the center of the node
+				#var end = connected_pos   # Center of the connected node
+				#var middle = (start + end)*2
+				##self.set_cell_item(Vector3i(middle.x,0,middle.y), 1)
+				## Draw connection line
+				##draw_line(start, end, Color(0.8, 0.8, 0.2), 2.0)
+				##draw_arrow(start, end)

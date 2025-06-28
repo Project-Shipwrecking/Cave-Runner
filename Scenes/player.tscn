@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3ftr23kgwuii"]
+[gd_scene load_steps=8 format=3 uid="uid://c3ftr23kgwuii"]
 
 [ext_resource type="Script" uid="uid://cmkjutgy367gg" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://4p6evgv7qwq6" path="res://Scripts/flashlight.gd" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://bgn4tk8nvqbhl" path="res://Scripts/in_game_cam.gd" id="3_6t5aa"]
+[ext_resource type="Material" uid="uid://bhqwsr4mlpvbm" path="res://Materials/shaderMaterial.tres" id="3_vgqql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
 radius = 0.3
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6t5aa"]
+resource_local_to_scene = true
+material = ExtResource("3_vgqql")
+size = Vector3(0.5, 0.3, 0.05)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v0iea")
@@ -24,6 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455, -0.215, -0.646)
+visible = false
 size = Vector3(0.334961, 0.329102, 0.339844)
 
 [node name="Flashlight" type="SpotLight3D" parent="Head/CSGBox3D"]
@@ -36,6 +44,20 @@ spot_attenuation = 2.0
 spot_angle = 40.0
 spot_angle_attenuation = 3.0
 script = ExtResource("2_cvnsp")
+
+[node name="InGameCam" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.511, -0.288, -0.666)
+layers = 2
+mesh = SubResource("BoxMesh_6t5aa")
+script = ExtResource("3_6t5aa")
+
+[node name="SubViewport" type="SubViewport" parent="Head/InGameCam"]
+
+[node name="Camera3D" type="Camera3D" parent="Head/InGameCam/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+cull_mask = 1048573
+
+[node name="Marker3D" type="Marker3D" parent="Head/InGameCam"]
 
 [node name="Camera" type="Camera3D" parent="Head"]
 current = true

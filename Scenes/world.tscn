@@ -1,11 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8va5j76m16p0"]
+[gd_scene load_steps=13 format=3 uid="uid://c8va5j76m16p0"]
 
 [ext_resource type="PackedScene" uid="uid://c3ftr23kgwuii" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="2_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://bti8m3icme3bp" path="res://Scenes/maze.tscn" id="4_8j60k"]
 
-[sub_resource type="Environment" id="Environment_5a7ea"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5a7ea"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_8j60k"]
+sky_material = SubResource("ProceduralSkyMaterial_5a7ea")
+
+[sub_resource type="Environment" id="Environment_fo5ed"]
 background_mode = 2
+sky = SubResource("Sky_8j60k")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -31,7 +39,7 @@ gradient = SubResource("Gradient_qdvrb")
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_5a7ea")
+environment = SubResource("Environment_fo5ed")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -48,7 +56,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_5a7ea")
 
 [node name="Player" parent="." instance=ExtResource("1_a02cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97771, 385.125, -3.13527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97771, 0.971369, -3.13527)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
