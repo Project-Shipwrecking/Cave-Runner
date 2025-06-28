@@ -1,5 +1,6 @@
 extends Node
 
 
-signal taking_photo(val:bool)
+signal focus_cam(val:bool)
 signal cam_reached_marker()
+signal photo_taken

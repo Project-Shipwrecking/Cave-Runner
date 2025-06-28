@@ -30,17 +30,17 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 var ui : UI
-var taking_photo : bool = false
+var focus_cam : bool = false
 
 func _ready() -> void:
 	capture_mouse()
 	ui = get_node("/root/" + get_tree().current_scene.name + "/CanvasLayer/UI") as UI
 	
-	$Head/InGameCam.taking_photo.connect(update_photo_state)
+	Global.focus_cam.connect(update_cam_state)
 
-func update_photo_state(is_taking:bool):
-	if is_taking == false: print_debug("Finsihed photo")
-	taking_photo = is_taking
+func update_cam_state(is_taking:bool):
+	#if is_taking == false: print_debug("Finsihed photo")
+	focus_cam = is_taking
 	
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -62,13 +62,13 @@ func _physics_process(delta: float) -> void:
 		ui.sprint_value += sprint_recovery * delta
 	
 	var walk = _walk(delta, move_speed)
-	if taking_photo:
+	if focus_cam:
 		walk *= 0.8
 	velocity = walk + _gravity(delta) + _jump(delta)
 	move_and_slide()
 	
 	# Bob head:
-	if not taking_photo: 
+	if not focus_cam: 
 		head_bob_time += delta * velocity.length() * float(is_on_floor())
 		camera.transform.origin = bob_head(head_bob_time)
 	

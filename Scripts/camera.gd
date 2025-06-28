@@ -14,13 +14,13 @@ var offset := Vector2.ZERO
 
 
 func _ready():
-	Global.taking_photo.connect(throw_camera)
+	Global.photo_taken.connect(throw_camera)
 	#Global.cam_reached_marker.connect(throw_camera)
 
 func _process(delta):
 	if Input.is_key_pressed(KEY_1):
 		#_camera_shake(1, 3)
-		throw_camera(true)
+		throw_camera()
 	# spring-like motion back to center
 	if shake_timer.is_stopped(): return
 	var force = -offset * elasticity
@@ -30,8 +30,7 @@ func _process(delta):
 	self.position = Vector3(offset.x, offset.y, 0)
 	
 
-func throw_camera(val:bool):
-	if val == false: return
+func throw_camera():
 	await get_tree().create_timer(0.3)
 	shake_timer.start(2)
 	var random_dir = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()

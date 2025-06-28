@@ -10,7 +10,7 @@ var sprint_value :float = 100. :
 		sprint_value = val
 		if val == 100: sprint_meter.visible = false
 		else: sprint_meter.visible = true
-		print(sprint_meter.value)
+		#print_debug(sprint_meter.value)
 
 
 
