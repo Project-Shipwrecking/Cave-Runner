@@ -15,10 +15,6 @@ run/main_scene="uid://c8va5j76m16p0"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-_CameraShake3D="*res://addons/CameraShake3D/CameraShake3D/CameraShake3DNode.gd"
-
 [display]
 
 window/size/viewport_width=2304
@@ -26,7 +22,7 @@ window/size/viewport_height=1296
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/CameraShake3D/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [input]
 

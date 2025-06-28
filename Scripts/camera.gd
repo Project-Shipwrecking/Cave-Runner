@@ -1,14 +1,12 @@
 extends Node3D
 
 
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#_CameraShake3D._init_camera_shake(self)
-	#
+@onready var igcam := $"../InGameCam" as MeshInstance3D
 
 @export var throw_strength: float = 3.0
 @export var return_speed: float = 5.0
 @export var elasticity: float = 1000.0
+
 
 var velocity := Vector2.ZERO
 var offset := Vector2.ZERO
