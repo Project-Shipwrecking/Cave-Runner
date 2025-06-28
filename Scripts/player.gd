@@ -28,12 +28,19 @@ var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
 @onready var head: Node3D = $Head
-@onready var camera: Camera3D = $Head/Camera
+@onready var camera: Camera3D = get_viewport().get_camera_3d()
 var ui : UI
+var taking_photo : bool = false
 
 func _ready() -> void:
 	capture_mouse()
 	ui = get_node("/root/" + get_tree().current_scene.name + "/CanvasLayer/UI") as UI
+	
+	$Head/InGameCam.taking_photo.connect(update_photo_state)
+
+func update_photo_state(is_taking:bool):
+	taking_photo = is_taking
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -52,13 +59,18 @@ func _physics_process(delta: float) -> void:
 		ui.sprint_timer.start()
 	elif ui.sprint_timer.is_stopped():
 		ui.sprint_value += sprint_recovery * delta
-	velocity = _walk(delta, move_speed) + _gravity(delta) + _jump(delta)
+	
+	var walk = _walk(delta, move_speed)
+	if taking_photo:
+		walk *= 0.8
+	velocity = walk + _gravity(delta) + _jump(delta)
 	move_and_slide()
 	
 	# Bob head:
-	if $Head/InGameCam.current_state == $Head/InGameCam.State.IDLE: 
+	if not taking_photo: 
 		head_bob_time += delta * velocity.length() * float(is_on_floor())
 		camera.transform.origin = bob_head(head_bob_time)
+	
 	
 func bob_head(bob_time: float):
 	var bob_pos = Vector3.ZERO
@@ -76,7 +88,7 @@ func release_mouse() -> void:
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	head.rotation.y -= look_dir.x * camera_sens * sens_mod
-	head.rotation.x = clamp(head.rotation.x - look_dir.y * camera_sens * sens_mod, -1.5, 1.5)
+	head.rotation.x = clamp(head.rotation.x - look_dir.y * camera_sens * sens_mod, -1, 1)
 
 #func _handle_joypad_camera_rotation(delta: float, sens_mod: float = 1.0) -> void:
 	#var joypad_dir: Vector2 = Input.get_vector("look_left","look_right","look_up","look_down")

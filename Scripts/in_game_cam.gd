@@ -7,6 +7,7 @@ class_name InGameCam extends MeshInstance3D
 var viewport 
 var current_state = State.IDLE
 var tween : Tween
+signal taking_photo(is_taking:bool)
 enum State {
 	IDLE,
 	MOVING_TO_MARKER,
@@ -40,6 +41,8 @@ func _set_portal_material():
 var original_transform 
 
 func start_interpolation():
+	taking_photo.emit(true)
+	
 	if current_state != State.IDLE:
 		return # Don't start if already interpolating
 	var target_transform = $"../IGCPlace".transform
@@ -69,6 +72,7 @@ func _on_tween_finished():
 	current_state = State.IDLE
 	print("Returned to original!")
 	tween = null # Clear the tween reference
+	taking_photo.emit(false)
 
 
 
