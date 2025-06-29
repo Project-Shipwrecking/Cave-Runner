@@ -31,7 +31,7 @@ func _set_portal_material():
 	var viewport_texture = viewport.get_texture()
 	viewport.size = get_viewport().size
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
-	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	viewport.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
 	
 	var material = ShaderMaterial.new()
 	material.shader = portal_shader
@@ -79,8 +79,8 @@ func hold_cam(val:bool):
 func take_photo():
 	if is_taking_photo == true: return
 	is_taking_photo = true
-	print("is taking photo? %s" % is_taking_photo)
-	Global.photo_taken.emit()
+	#await RenderingServer.frame_post_draw
+	Global.photo_taken.emit(viewport.get_texture())
 	if tween == null: 
 		tween = get_tree().create_tween()
 	tween.kill()
