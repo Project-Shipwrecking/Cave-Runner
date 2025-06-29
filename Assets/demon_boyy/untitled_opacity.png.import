@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o66sii8bq0ys"
-path.s3tc="res://.godot/imported/Material_emissive.png-8b2c7ec1c8c0bc4ded16af14df715b40.s3tc.ctex"
+uid="uid://f6m7cvhwab1o"
+path.s3tc="res://.godot/imported/untitled_opacity.png-b9238b5b2c717b76d5044ff830f456cc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "0ac48b405a47c70252835a59da8b3b5d"
+}
 
 [deps]
 
-source_file="res://Assets/demon_boy/textures/Material_emissive.png"
-dest_files=["res://.godot/imported/Material_emissive.png-8b2c7ec1c8c0bc4ded16af14df715b40.s3tc.ctex"]
+source_file="res://Assets/demon_boyy/untitled_opacity.png"
+dest_files=["res://.godot/imported/untitled_opacity.png-b9238b5b2c717b76d5044ff830f456cc.s3tc.ctex"]
 
 [params]
 

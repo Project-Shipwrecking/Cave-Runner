@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n7735ackjrle"
-path.s3tc="res://.godot/imported/Material_baseColor.png-6e5dfb19063fa445e5449b3770c0d38b.s3tc.ctex"
+uid="uid://dawhfhvjamb7t"
+path.s3tc="res://.godot/imported/untitled_emis.png-6cc65ade3cf7d450a7a5e572c5c29001.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "6f07861551fbc710a81c80cd65e8f5b2"
+}
 
 [deps]
 
-source_file="res://Assets/demon_boy/textures/Material_baseColor.png"
-dest_files=["res://.godot/imported/Material_baseColor.png-6e5dfb19063fa445e5449b3770c0d38b.s3tc.ctex"]
+source_file="res://Assets/demon_boyy/untitled_emis.png"
+dest_files=["res://.godot/imported/untitled_emis.png-6cc65ade3cf7d450a7a5e572c5c29001.s3tc.ctex"]
 
 [params]
 
