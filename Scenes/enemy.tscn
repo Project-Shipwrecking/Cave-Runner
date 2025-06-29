@@ -49,7 +49,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_388fv")
 
 [node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
-collision_layer = 4
+collision_layer = 7
 script = ExtResource("1_287tu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

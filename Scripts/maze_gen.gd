@@ -175,6 +175,7 @@ var point_to_body : Vector3
 
 func _on_maze_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
+		print("finally")
 		Global.is_in_maze == true
 		Global.maze_entered.emit(true)
 
