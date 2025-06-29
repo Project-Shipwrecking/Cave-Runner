@@ -5,7 +5,6 @@ extends Node3D
 @onready var image_scene = preload("res://Scenes/image_scene.tscn")
 
 var holding_cam := false
-var images : Array = []
 
 func _ready():
 	holding_cam = igcam.visible
@@ -36,7 +35,7 @@ func _on_photo_taken(tex:ViewportTexture):
 	var image = tex.get_image()
 	image.convert(Image.FORMAT_RGBA8)
 	var static_texture = ImageTexture.create_from_image(image)
-	images.append(static_texture)
+	Global.add_image(static_texture)
 	
 	
 	var image_instance :Sprite3D = image_scene.instantiate()

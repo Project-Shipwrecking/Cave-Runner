@@ -5,13 +5,40 @@ signal focus_cam(val:bool)
 signal cam_reached_marker()
 signal photo_taken(tex:ViewportTexture)
 
+# Game
+signal game_state_changed(old_state:int)
+var game_state : int = 1 :
+	set(val):
+		var old = game_state
+		game_state = val
+		game_state_changed.emit(old)
+signal image_added(image)
+func add_image(im):
+	image_added.emit(im)
+	images.append(im)
+var images : Array[Texture2D] = [] 
+var scores : Array[float] = []
+enum Game {
+	MAIN_MENU,
+	CAVE_RUNNING,
+	DIED,
+	END,
+}
+
+# Maze
+## True if entered, false if exited. 
+signal maze_entered(val:bool) 
+var is_in_maze = false
+
+# Artifacts
+var artifacts : Array[Artifact] = []
+
 # Player
 signal player_pos_changed
 var player_pos : Vector3 :
 	set(new_pos):
 		player_pos_changed.emit(new_pos)
 		player_pos = new_pos
-var player_state : int
 
 # Monster
 signal monster_pos_changed

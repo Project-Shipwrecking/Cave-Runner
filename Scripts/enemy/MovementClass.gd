@@ -1,4 +1,4 @@
-class_name MovementClass extends Node
+class_name MovementClass
 
 var direction : Vector2 = Vector2(0,0)
 var speed : float

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn5yx22s0cuc5"]
+
+[ext_resource type="Script" uid="uid://bc8mv854bm5k1" path="res://Scripts/artifact.gd" id="1_06uhl"]
+
+[node name="Artifact" type="Node3D"]
+script = ExtResource("1_06uhl")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

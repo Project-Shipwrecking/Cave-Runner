@@ -33,7 +33,7 @@ func move_random() -> void:
 	newMove.distance = randf_range(1,2)
 	newMove.speed = SPEED
 	ai.pathfind(newMove, self)
-	print_debug("random")
+	#print_debug("random")
 
 func move_toward_target_body() -> void:
 	var movement = Global.player_pos - get_global_position()
@@ -49,7 +49,7 @@ func _on_state_change(state):
 		# print(Global.monster_state)
 		if Global.monster_unbroken_sightline:
 			move_random()
-			print("working?")
+			#print("working?")
 		else:
 			if Global.monster_seen:
 				Global.monster_state = Util.EnemyState.FROZEN

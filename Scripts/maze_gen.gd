@@ -45,6 +45,7 @@ func generateMaze() -> Array[Array]:
 
 func _open_entrance_exit():
 	set_cell_item(Vector3i(-1,0,0),0)
+	#.position = map_to_local(Vector3(-1,0,0))
 	set_cell_item(Vector3i(maze_size.x*2-2,0,maze_size.y*2-1),0)
 	
 
@@ -145,32 +146,40 @@ func print_node_data(pos: Vector2) -> void:
 	for connected_node in node.connected_nodes:
 		print("Connected to: ", connected_node.name)
 
+var point_to_body : Vector3
 
 
-#func _bring_to_3d() -> void:
-	## Draw nodes and connections
-	#for x in range(maze_size.x):
-		#for y in range(maze_size.y):
-			#var node_data = maze[x][y]
-			##var node_pos  = self.map_to_local(node_data.pos)
-#
-			## Draw node rectangle
-			##var rect: Rect2  = Rect2(node_pos, Vector2(cell_size_digi * 0.5, cell_size_digi * 0.5))
-			##var color: Color = Color(0.2, 0.2, 0.8, 1)
-#
-			## Highlight origin node
-			##if Vector2(x, y) == origin_pos:
-				##color = Color(0.8, 0.2, 0.2, 1)
-#
-			##draw_rect(rect, color, true)
-#
-			## Draw connections with arrows
-			#for connected_node in node_data.connected_nodes:
-				#var connected_pos = connected_node.position
-				#var start = node_data.pos  # Start at the center of the node
-				#var end = connected_pos   # Center of the connected node
-				#var middle = (start + end)*2
-				##self.set_cell_item(Vector3i(middle.x,0,middle.y), 1)
-				## Draw connection line
-				##draw_line(start, end, Color(0.8, 0.8, 0.2), 2.0)
-				##draw_arrow(start, end)
+
+#func _on_entrance_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	#if body.name == "Maze": return
+	#print(body.name)
+
+
+#func _on_entrance_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	#if body is not Player: return
+	#var new_point = body.global_position - self.global_position
+	#var sign_og = sign(self.global_transform.basis.x.normalized()\
+			#.dot(point_to_body.normalized()))
+	#var sign_new = sign(self.global_transform.basis.x.normalized()\
+			#.dot(new_point.normalized()))
+	#print(self.global_transform.basis.x.normalized()\
+			#.dot(point_to_body.normalized()))
+	#print(self.global_transform.basis.x.normalized()\
+			#.dot(new_point.normalized()))
+	#if sign_og != sign_new:
+		#print_debug("entered!")
+		#Global.is_in_maze == true
+		#Global.maze_entered.emit(true)
+
+
+
+func _on_maze_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		Global.is_in_maze == true
+		Global.maze_entered.emit(true)
+
+
+func _on_maze_area_body_exited(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		Global.is_in_maze == false
+		Global.maze_entered.emit(false)

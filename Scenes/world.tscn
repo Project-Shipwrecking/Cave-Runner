@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8va5j76m16p0"]
+[gd_scene load_steps=14 format=3 uid="uid://c8va5j76m16p0"]
 
+[ext_resource type="Script" uid="uid://rdjfnxyppd2j" path="res://Scripts/world.gd" id="1_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://c3ftr23kgwuii" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="2_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://bti8m3icme3bp" path="res://Scenes/maze.tscn" id="4_8j60k"]
 [ext_resource type="PackedScene" uid="uid://ea5crg82sd6v" path="res://Scenes/enemy.tscn" id="4_fo5ed"]
-[ext_resource type="Script" path="res://Scripts/player/SightLine.gd" id="5_fo5ed"]
+[ext_resource type="Script" uid="uid://blmsssooqqjh7" path="res://Scripts/enemy/SightLine.gd" id="5_fo5ed"]
 
 [sub_resource type="Environment" id="Environment_fo5ed"]
 background_mode = 1
@@ -32,6 +33,7 @@ colors = PackedColorArray(0.792157, 0.772549, 0.168627, 0.756863, 0.792157, 0.77
 gradient = SubResource("Gradient_qdvrb")
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_5ukr8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fo5ed")
@@ -41,7 +43,7 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.9655, -0.5, 35.4527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.965, -5, 35.453)
 mesh = SubResource("BoxMesh_a02cp")
 skeleton = NodePath("")
 
@@ -51,8 +53,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_5a7ea")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_a02cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97771, 0.971369, -3.13527)
-collision_layer = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.97771, -3.61048, -3.13527)
 collision_mask = 5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -89,7 +90,9 @@ data = {
 }
 
 [node name="Enemy" parent="." instance=ExtResource("4_fo5ed")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.76289, 1.26271, -5.45738)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.76289, -1.95802, -5.45738)
+collision_layer = 1
+collision_mask = 2
 up_direction = Vector3(0, -1, 0)
 
 [node name="Sightline" type="RayCast3D" parent="." groups=["Enemy"]]

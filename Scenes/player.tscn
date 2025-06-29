@@ -15,6 +15,7 @@ radius = 0.3
 size = Vector2(0.432, 0.243)
 
 [node name="Player" type="CharacterBody3D"]
+collision_mask = 4
 script = ExtResource("1_v0iea")
 bob_freq = 5.0
 bob_amp = 0.05
