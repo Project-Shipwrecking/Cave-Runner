@@ -81,6 +81,18 @@ collision_mask = 2
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_blrbd")
 
+[node name="LeftEye" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0706124, 0.496818, -0.452798)
+light_energy = 0.2
+spot_range = 100.0
+spot_angle = 10.0
+
+[node name="RightEye" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.227576, 0.496818, -0.452798)
+light_energy = 0.2
+spot_range = 100.0
+spot_angle = 10.0
+
 [connection signal="target_reached" from="EnemyAI" to="." method="_on_enemy_ai_target_reached"]
 [connection signal="screen_entered" from="OnScreenCheck" to="." method="_on_sightline_screen_entered"]
 [connection signal="screen_exited" from="OnScreenCheck" to="." method="_on_sightline_screen_exited"]
