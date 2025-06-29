@@ -17,6 +17,8 @@ func _physics_process(delta: float) -> void:
 	velocity.y -= 9.8 * delta  # apply gravity
 	move_and_slide()		
 	Global.monster_pos = global_position
+	#if Global.monster_state != Util.EnemyState.FROZEN:
+		#self.look_at(Global.player_pos)
 
 
 
@@ -31,19 +33,20 @@ func move_random() -> void:
 	newMove.distance = randf_range(1,2)
 	newMove.speed = SPEED
 	ai.pathfind(newMove, self)
-	print("random")
+	print_debug("random")
 
 func move_toward_target_body() -> void:
 	var movement = Global.player_pos - get_global_position()
 	movement = movement.normalized() * SPEED
 	velocity = movement
-	velocity.y = 0
+	#velocity.y = 0
+	self.look_at(Global.player_pos)
 	
 
 func _on_state_change(state):
 	if state == Util.EnemyState.IDLE:
-		print(Global.monster_unbroken_sightline)
-		print(Global.monster_state)
+		# print_debug("Monster sightline: %s" % Global.monster_unbroken_sightline)
+		# print(Global.monster_state)
 		if Global.monster_unbroken_sightline:
 			move_random()
 			print("working?")

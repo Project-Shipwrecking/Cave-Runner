@@ -30,7 +30,6 @@ func generateMaze() -> Array[Array]:
 
 			var node_data = NodeData.new(Vector2(x, y))
 			row.append(node_data)
-			print(node_data.pos)
 			add_child(node)  # Add node to scene immediately
 
 		maze.append(row)

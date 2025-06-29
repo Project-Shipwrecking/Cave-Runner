@@ -5,6 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://dawhfhvjamb7t" path="res://Assets/demon_boyy/untitled_emis.png" id="3_0830c"]
 [ext_resource type="Script" uid="uid://bvdh4jqa0dvfl" path="res://Scripts/EnemyAI.gd" id="3_kgq2x"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_blrbd"]
+
+[sub_resource type="Curve" id="Curve_xh4ir"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(0, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m112d"]
 resource_name = "Material.002"
 cull_mode = 2
@@ -27,7 +34,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ghaa6"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_287tu"]
 resource_name = "untitled_Cube_001"
 _surfaces = [{
 "aabb": AABB(-1.99769, -1.07907, -4.04717, 2.25842, 2.53179, 4.06039),
@@ -46,21 +53,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_388fv")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_blrbd"]
-
-[sub_resource type="Curve" id="Curve_xh4ir"]
-_limits = [0.0, 3.0, 0.0, 1.0]
-_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(0, 3), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 4
 script = ExtResource("1_luumh")
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, -7.54979e-08, 3.30012e-15, 0, -2.18557e-08, -0.5, -7.54979e-08, -0.5, 2.18557e-08, 0.41877, -1, 0.365271)
-mesh = SubResource("ArrayMesh_ghaa6")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_blrbd")
@@ -92,6 +87,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.227576, 0.496818, -0.452798
 light_energy = 0.2
 spot_range = 100.0
 spot_angle = 10.0
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, -4.37114e-08, 0, -1.91069e-15, -2.18557e-08, -0.5, -4.37114e-08, -0.5, 2.18557e-08, 0.42, -1, 0.35)
+mesh = SubResource("ArrayMesh_287tu")
 
 [connection signal="target_reached" from="EnemyAI" to="." method="_on_enemy_ai_target_reached"]
 [connection signal="screen_entered" from="OnScreenCheck" to="." method="_on_sightline_screen_entered"]

@@ -48,7 +48,6 @@ func hold_cam(val:bool):
 	if self.visible == false:
 		return # Don't start if already interpolating
 	var interpolation_duration = .2
-	var delay_at_marker = .7
 	if val == true:
 		if current_state != State.IDLE: return
 		var target_transform = $"../IGCPlace".transform

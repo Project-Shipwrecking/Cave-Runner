@@ -8,7 +8,7 @@ signal target_reached
 
 func random_dir() -> Vector2:
 	var rand := Vector2(randfn(prev_dir.x,.5),randfn(prev_dir.x,.5))
-	rand += prev_dir
+	rand += 1.5*prev_dir
 	return Vector2(rand.x, rand.y).normalized()
 		
 	
@@ -24,6 +24,7 @@ func pathfind(move : MovementClass, body : CharacterBody3D) -> void:
 	current_movement.start = body.global_position
 	body.velocity.x = current_movement.direction.x * current_movement.speed
 	body.velocity.z = current_movement.direction.y * current_movement.speed
+	body.look_at(Vector3(current_movement.direction.x, 0, current_movement.direction.y) + body.global_position)
 	body.move_and_slide()
 	Global.monster_moving = false
 	
