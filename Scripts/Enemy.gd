@@ -13,7 +13,10 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	Global.monster_pos = get_global_position()
+	
+	velocity.y -= 9.8 * delta  # apply gravity
 	move_and_slide()		
+	Global.monster_pos = global_position
 
 
 
@@ -31,7 +34,7 @@ func move_random() -> void:
 	print("random")
 
 func move_toward_target_body() -> void:
-	var movement := Global.player_pos - get_global_position()
+	var movement = Global.player_pos - get_global_position()
 	movement = movement.normalized() * SPEED
 	velocity = movement
 	velocity.y = 0

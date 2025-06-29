@@ -66,6 +66,7 @@ func _physics_process(delta: float) -> void:
 		walk *= 0.8
 	velocity = walk + _gravity(delta) + _jump(delta)
 	move_and_slide()
+	Global.player_pos = global_position
 	
 	# Bob head:
 	if not focus_cam: 

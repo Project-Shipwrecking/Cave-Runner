@@ -3,7 +3,6 @@ extends Node3D
 @onready var flashlight := $FlashlightModel as CSGCombiner3D
 @onready var igcam := $InGameCam as InGameCam
 @onready var image_scene = preload("res://Scenes/image_scene.tscn")
-@onready var image_shader = preload("res://Shaders/image.gdshader")
 
 var holding_cam := false
 var images : Array = []
@@ -40,7 +39,7 @@ func _on_photo_taken(tex:ViewportTexture):
 	images.append(static_texture)
 	
 	
-	var image_instance :MeshInstance3D = image_scene.instantiate()
+	var image_instance :Sprite3D = image_scene.instantiate()
 	get_tree().current_scene.add_child(image_instance)
 	
 	var forward_vector: Vector3 = -global_transform.basis.z
@@ -49,11 +48,12 @@ func _on_photo_taken(tex:ViewportTexture):
 	image_instance.global_position = target_global_position
 	image_instance.look_at(global_position, Vector3.UP)
 	
-	var material = ShaderMaterial.new()
-	material.shader = image_shader
-	material.set_shader_parameter("albedo_texture", static_texture)
-	
-	image_instance.material_override = material
+	image_instance.texture = static_texture
 	
 	await get_tree().create_timer(2).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property(image_instance, "modulate", Color(1,1,1,0), 1)
+#
+	## Wait for fade to finish, then free
+	await tween.finished
 	image_instance.queue_free()
