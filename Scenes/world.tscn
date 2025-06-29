@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="2_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://bti8m3icme3bp" path="res://Scenes/maze.tscn" id="4_8j60k"]
 [ext_resource type="PackedScene" uid="uid://ea5crg82sd6v" path="res://Scenes/enemy.tscn" id="4_fo5ed"]
-[ext_resource type="Script" uid="uid://blmsssooqqjh7" path="res://Scripts/SightLine.gd" id="5_fo5ed"]
+[ext_resource type="Script" path="res://Scripts/player/SightLine.gd" id="5_fo5ed"]
 
 [sub_resource type="Environment" id="Environment_fo5ed"]
 background_mode = 1

@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://c3ftr23kgwuii"]
 
-[ext_resource type="Script" uid="uid://cmkjutgy367gg" path="res://Scripts/player.gd" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://cibeypc3wu5rh" path="res://Scripts/head.gd" id="2_3smsa"]
-[ext_resource type="Script" uid="uid://cx0f6isccgvgm" path="res://Scripts/camera.gd" id="2_x3wgy"]
-[ext_resource type="Script" uid="uid://bgn4tk8nvqbhl" path="res://Scripts/in_game_cam.gd" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://duxse0c1eai4" path="res://Scripts/igc_place.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://cmkjutgy367gg" path="res://Scripts/player/player.gd" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://cibeypc3wu5rh" path="res://Scripts/player/head.gd" id="2_3smsa"]
+[ext_resource type="Script" uid="uid://cx0f6isccgvgm" path="res://Scripts/player/camera.gd" id="2_x3wgy"]
+[ext_resource type="Script" uid="uid://bgn4tk8nvqbhl" path="res://Scripts/player/in_game_cam.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://duxse0c1eai4" path="res://Scripts/player/igc_place.gd" id="5_fkybt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
 radius = 0.3
