@@ -48,6 +48,7 @@ mesh = SubResource("QuadMesh_fkybt")
 script = ExtResource("3_6t5aa")
 
 [node name="SubViewport" type="SubViewport" parent="Head/InGameCam"]
+size = Vector2i(2304, 1296)
 
 [node name="Camera3D" type="Camera3D" parent="Head/InGameCam/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -59,19 +60,6 @@ light_energy = 1.5
 spot_range = 100.0
 spot_attenuation = -0.5
 spot_angle = 70.0
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Head/InGameCam"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Head/InGameCam/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.011)
-layers = 2
-size = Vector3(0.443, 0.251, 0.02)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Head/InGameCam/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.105117)
-layers = 2
-radius = 0.100098
-height = 0.168945
 
 [node name="FlashlightModel" type="CSGCombiner3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.455, -0.215, -0.646)

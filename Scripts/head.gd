@@ -2,11 +2,15 @@ extends Node3D
 
 @onready var flashlight := $FlashlightModel as CSGCombiner3D
 @onready var igcam := $InGameCam as InGameCam
+@onready var image_scene = preload("res://Scenes/image_scene.tscn")
+@onready var image_shader = preload("res://Shaders/image.gdshader")
 
 var holding_cam := false
+var images : Array = []
 
 func _ready():
 	holding_cam = igcam.visible
+	Global.photo_taken.connect(_on_photo_taken)
 
 #TODO Get animations
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,4 +32,23 @@ func _process(_delta:float) -> void:
 	elif Input.is_action_just_pressed("left_click"):
 		if holding_cam == true or igcam.visible:
 			igcam.take_photo()
+
+func _on_photo_taken(tex:ViewportTexture):
+	var image = tex.get_image()
+	image.convert(Image.FORMAT_RGBA8)
+	var static_texture = ImageTexture.create_from_image(image)
+	images.append(static_texture)
 	
+	
+	var image_instance :MeshInstance3D = image_scene.instantiate()
+	get_tree().current_scene.add_child(image_instance)
+	image_instance.global_transform = global_transform
+	
+	var material = ShaderMaterial.new()
+	material.shader = image_shader
+	material.set_shader_parameter("albedo_texture", static_texture)
+	
+	image_instance.material_override = material
+	
+	await get_tree().create_timer(2).timeout
+	image_instance.queue_free()
