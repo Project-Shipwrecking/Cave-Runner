@@ -42,7 +42,12 @@ func _on_photo_taken(tex:ViewportTexture):
 	
 	var image_instance :MeshInstance3D = image_scene.instantiate()
 	get_tree().current_scene.add_child(image_instance)
-	image_instance.global_transform = global_transform
+	
+	var forward_vector: Vector3 = -global_transform.basis.z
+	# Calculate the target global position for the new object
+	var target_global_position: Vector3 = global_transform.origin + (forward_vector * 2)
+	image_instance.global_position = target_global_position
+	image_instance.look_at(global_position, Vector3.UP)
 	
 	var material = ShaderMaterial.new()
 	material.shader = image_shader

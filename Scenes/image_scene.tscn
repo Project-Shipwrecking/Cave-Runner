@@ -1,16 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgynnxbwf41tp"]
+[gd_scene load_steps=3 format=3 uid="uid://dgynnxbwf41tp"]
 
 [ext_resource type="Material" uid="uid://bxvnonyo1jdq2" path="res://Materials/image.tres" id="1_10ujo"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_10ujo"]
 material = ExtResource("1_10ujo")
 
-[sub_resource type="QuadMesh" id="QuadMesh_2yvxd"]
-size = Vector2(0.432, 0.243)
-
 [node name="Image" type="MeshInstance3D"]
 mesh = SubResource("QuadMesh_10ujo")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("QuadMesh_2yvxd")

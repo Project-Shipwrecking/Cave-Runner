@@ -1,19 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8va5j76m16p0"]
+[gd_scene load_steps=11 format=3 uid="uid://c8va5j76m16p0"]
 
 [ext_resource type="PackedScene" uid="uid://c3ftr23kgwuii" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Script" uid="uid://ch2nobbrxpim6" path="res://Scripts/ui.gd" id="2_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://bti8m3icme3bp" path="res://Scenes/maze.tscn" id="4_8j60k"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5a7ea"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-
-[sub_resource type="Sky" id="Sky_8j60k"]
-sky_material = SubResource("ProceduralSkyMaterial_5a7ea")
-
 [sub_resource type="Environment" id="Environment_fo5ed"]
-background_mode = 2
-sky = SubResource("Sky_8j60k")
+background_mode = 1
+background_color = Color(0.138638, 0.138637, 0.138637, 1)
 tonemap_mode = 2
 glow_enabled = true
 
