@@ -16,7 +16,6 @@ var sprint_recovery : float = 10
 var head_bob_time := 0.0
 
 var jumping: bool = false
-var mouse_captured: bool = false
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -33,7 +32,6 @@ var ui : UI
 var focus_cam : bool = false
 
 func _ready() -> void:
-	capture_mouse()
 	ui = get_node("/root/" + get_tree().current_scene.name + "/CanvasLayer/UI") as UI
 	
 	Global.focus_cam.connect(update_cam_state)
@@ -46,9 +44,8 @@ func update_cam_state(is_focused:bool):
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		look_dir = event.relative * 0.001
-		if mouse_captured: _rotate_camera()
+		if Global.mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("jump"): jumping = true
-	if Input.is_action_just_pressed("exit"): get_tree().quit()
 
 func _physics_process(delta: float) -> void:
 	#if mouse_captured: _handle_joypad_camera_rotation(delta)
@@ -80,13 +77,7 @@ func bob_head(bob_time: float):
 	bob_pos.x = cos(bob_time * bob_freq / 2) * bob_amp
 	return bob_pos
 
-func capture_mouse() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	mouse_captured = true
 
-func release_mouse() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	mouse_captured = false
 
 func _rotate_camera(sens_mod: float = 1.0) -> void:
 	head.rotation.y -= look_dir.x * camera_sens * sens_mod

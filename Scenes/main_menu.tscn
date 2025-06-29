@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjikkp21uyvjf"]
+
+[ext_resource type="Script" uid="uid://rldr5mde3rxo" path="res://Scripts/main_menu.gd" id="2_48xlc"]
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_48xlc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.294118)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1536.0
+offset_bottom = -864.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 3)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/CenterContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/CenterContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=35]Cave Runner...?"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="ColorRect/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start Game"
+
+[node name="OptionButton" type="Button" parent="ColorRect/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="ColorRect/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[connection signal="pressed" from="ColorRect/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ColorRect/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

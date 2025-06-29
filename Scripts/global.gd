@@ -20,10 +20,19 @@ var images : Array[Texture2D] = []
 var scores : Array[float] = []
 enum Game {
 	MAIN_MENU,
+	PAUSE_MENU,
 	CAVE_RUNNING,
 	DIED,
 	END,
 }
+var mouse_captured = false
+func capture_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	mouse_captured = true
+
+func release_mouse() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	mouse_captured = false
 
 # Maze
 ## True if entered, false if exited. 

@@ -15,7 +15,8 @@ var sprint_value :float = 100. :
 		else: sprint_meter.visible = true
 		#print_debug(sprint_meter.value)
 
-
+func _ready():
+	sprint_meter.visible = false
 
 func _on_timer_timeout() -> void:
 	sprint_value += 0.3
