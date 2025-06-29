@@ -4,6 +4,9 @@ class_name UI extends Control
 @onready var sprint_timer := $SprintMeter/Timer as Timer
 var sprint_value :float = 100. :
 	set(val):
+		if Global.game_state != Global.Game.CAVE_RUNNING: 
+			sprint_meter.visible = false
+			return
 		val = clamp(val, sprint_meter.min_value, sprint_meter.max_value)
 		if val == sprint_meter.value: return
 		sprint_meter.value = val

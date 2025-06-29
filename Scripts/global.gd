@@ -6,12 +6,12 @@ signal cam_reached_marker()
 signal photo_taken(tex:ViewportTexture)
 
 # Game
-signal game_state_changed(old_state:int)
-var game_state : int = 1 :
+signal game_state_changed(new)
+var game_state = 0:
 	set(val):
-		var old = game_state
+		if val == game_state: return
+		self.game_state_changed.emit(val)
 		game_state = val
-		game_state_changed.emit(old)
 signal image_added(image)
 func add_image(im):
 	image_added.emit(im)
