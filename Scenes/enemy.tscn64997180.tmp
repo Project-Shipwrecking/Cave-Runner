@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://ea5crg82sd6v"]
+
+[ext_resource type="Script" uid="uid://c3ykxaf73ft30" path="res://Scripts/Enemy.gd" id="1_luumh"]
+[ext_resource type="Script" uid="uid://brn72tdirwmnu" path="res://Scripts/Movement.gd" id="2_keu5e"]
+[ext_resource type="Script" uid="uid://bvdh4jqa0dvfl" path="res://Scripts/EnemyAI.gd" id="3_kgq2x"]
+[ext_resource type="Shader" uid="uid://qe5lq33vo8fn" path="res://Shaders/PixelPerfectOutline.gdshader" id="3_sibyl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_blrbd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crcda"]
+render_priority = 0
+shader = ExtResource("3_sibyl")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 4.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ysor6"]
+
+[sub_resource type="Curve" id="Curve_xh4ir"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(0, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 4
+script = ExtResource("1_luumh")
+
+[node name="Movement" type="Node3D" parent="."]
+script = ExtResource("2_keu5e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_blrbd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_overlay = SubResource("ShaderMaterial_crcda")
+mesh = SubResource("CapsuleMesh_ysor6")
+
+[node name="EnemyAI" type="Node3D" parent="."]
+script = ExtResource("3_kgq2x")
+curve = SubResource("Curve_xh4ir")
+
+[node name="OnScreenCheck" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.5, 0, -0.5)
+aabb = AABB(0, -1, 0, 1, 2, 1)
+
+[node name="KillBox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillBox"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_blrbd")
+
+[connection signal="target_reached" from="EnemyAI" to="." method="_on_enemy_ai_target_reached"]
+[connection signal="screen_entered" from="OnScreenCheck" to="." method="_on_sightline_screen_entered"]
+[connection signal="screen_exited" from="OnScreenCheck" to="." method="_on_sightline_screen_exited"]
+[connection signal="body_entered" from="KillBox" to="." method="_on_kill_box_body_entered"]
