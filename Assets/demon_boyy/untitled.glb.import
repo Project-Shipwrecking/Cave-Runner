@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://neu8djhcnjod"
-path="res://.godot/imported/scene.gltf-d4916d6b236ec5321be391c9f0d1fcb1.scn"
+uid="uid://32ayeksegpsf"
+path="res://.godot/imported/untitled.glb-c8c50deb7efef60cad4f7b96d2e41cd6.scn"
 
 [deps]
 
-source_file="res://Assets/demon_boy/scene.gltf"
-dest_files=["res://.godot/imported/scene.gltf-d4916d6b236ec5321be391c9f0d1fcb1.scn"]
+source_file="res://Assets/demon_boyy/untitled.glb"
+dest_files=["res://.godot/imported/untitled.glb-c8c50deb7efef60cad4f7b96d2e41cd6.scn"]
 
 [params]
 
